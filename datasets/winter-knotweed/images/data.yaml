@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 3
+names: ['bushes', 'knotweed-stems', 'tree trunks']
+
+roboflow:
+  workspace: edtest
+  project: winter-knotweed
+  version: 1
+  license: CC BY 4.0
+  url: https://app.roboflow.com/edtest/winter-knotweed/1
