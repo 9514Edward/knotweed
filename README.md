@@ -1,4 +1,5 @@
-# knotweed robot
+# Knotweed Terminataor Robot
+# See the other readme at 
 
 ## Introduction
   - The goal of this project is a tank tread robot which can with occasional human assist navigate throughout a patch of knotweed and terminate it -- aka remediatition.  I envision a single operator with about 6 robots deployed at once to remediate a 1,000 square foot patch in about an hour.  Also other models for other plants such as English Ivy.
