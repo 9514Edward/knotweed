@@ -4,7 +4,7 @@ from ultralytics import YOLO
 # 8n is nano training, 8s is small training
 
 # Load the model.
-model = YOLO('yolov8s.pt')
+model = YOLO('yolov8m.pt')
  
 # Training.
 results = model.train(
@@ -12,5 +12,5 @@ results = model.train(
    imgsz=640,
    epochs=50,
    batch=8,
-   name='yolov8s_v8_50e'
+   name='yolov8m_v8_50e'
 )
