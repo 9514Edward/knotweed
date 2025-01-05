@@ -1,4 +1,4 @@
-# Knotweed Terminataor Robot
+# Knotweed Terminator Robot
 ## Also, see the other README  
 You can find additional details in the [README Robot Code at GitHub](https://github.com/9514Edward/winterknotweed/tree/main/robot-source#startup-files).  
 
