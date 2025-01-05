@@ -9,7 +9,14 @@
   - I have until then to develop the robot.
 ## Training steps
   - Purchase an AWS EC2 P3 Instance
+     - Deep Learning OSS Nvidia Driver AMI GPU TensorFlow 2.18 (Ubuntu 22.04)
+     - g4dn 12XLarge $6.12 and hour
+     - created a pem key for access (computervision.pem)
+     - Allowing ssh access from my IP
+  - Logged in via ssh
+  - ssh -i C:\Users\User\source\python\winter_knotweed\computervision.pem ubuntu@ec2-52-206-140-136.compute-1.amazonaws.com
 
+The Dave 209 robot test bed
  ![20250104_192800 (Small)](https://github.com/user-attachments/assets/59fe39b7-ece7-4dbe-a2ac-2eb8297dff12)
   -  
 
