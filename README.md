@@ -15,6 +15,8 @@
      - Allowing ssh access from my IP
   - Logged in via ssh
   - ssh -i C:\Users\User\source\python\winter_knotweed\computervision.pem ubuntu@ec2-52-206-140-136.compute-1.amazonaws.com
+  - sudo apt install gh
+  - 
 
 The Dave 209 robot test bed
  ![20250104_192800 (Small)](https://github.com/user-attachments/assets/59fe39b7-ece7-4dbe-a2ac-2eb8297dff12)
