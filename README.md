@@ -3,7 +3,7 @@
 ## Introduction
   - The goal of this project is a tank tread robot which can with occasional human assist navigate throughout a patch of knotweed and terminate it -- aka remediatition.  I envision a single operator with about 6 robots deployed at once to remediate a 1,000 square foot patch in about an hour.  Also other models for other plants such as English Ivy.
   - The dataset was annotated on RoboFlow with a monthly subscription ($65), leveraging their Label Assist tool to rapidly draw bounding boxes, then I reviewed all images manually and made corrections/deletions/additions as needed to all the annotations.  Then I downloaded the dataset as shown in the datasets folder here.
-  - I have leveraged my existing AWS account to train on an AWS GPU.
+  - I have used my AWS account to train on an AWS GPU for a minimal hourly cost because training takes less than an hour.
   - The next generation (prototype) robot will need to map the target area, probably with lidar and require more advanced autonomous steering features as well as remediation attachments.
   - In August I will photograph living knotweed and retrain. August/September is the optimal time to terminate knotweed.
   - I have until then to develop the robot.
