@@ -38,8 +38,7 @@ You can find additional details in the [README Robot Code at GitHub](https://git
   - git push origin main
   - Now I have the pytorch model file source/training/runs/detect/yolov8s_v8_50e2/weights/best.pt (the best small model after training) which I can use for inference testing and in my robot code.
   - Terminate the instance.  Total time with the EC2 instance took just over an hour due to learning curve and documentation here.
-
-The Dave 209 robot test bed
+  - The Dave 209 robot test bed
  ![20250104_192800 (Small)](https://github.com/user-attachments/assets/59fe39b7-ece7-4dbe-a2ac-2eb8297dff12)
  
 
