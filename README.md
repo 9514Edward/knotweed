@@ -12,7 +12,7 @@ You can find additional details in the [README Robot Code at GitHub](https://git
 
 ## Status at Jan 5, 2025
   - Collaborators are welcome.  Email me at titlesync@gmail.com  I am already collaborating with chat GPT 3 and Google.  I have no education or training on the software and hardware discussed in this project but I am capable of asking the right questions of the right tools to get things to work.
-  - A small testbed tank tread robot is assembled with tread controller and camera.  It is integrated with an off the shelf bluetooth game controller and can drive around via manual inputs from the game controller
+  - A small testbed tank tread robot is assembled with tread controller and camera.  It is integrated with an off the shelf bluetooth game controller and can drive around via manual inputs from the game controller.
   - PyTorch Ultralytics small computer vision model has been created from 120 images and is based on the COCO framework and works only with confidence level of 12% or so.  Many more training photos are needed.
     
 ## Training steps
