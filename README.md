@@ -11,7 +11,7 @@
 ## Status at Jan 5, 2025
   - Collaborators are welcome.  Email me at titlesync@gmail.com
   - A small testbed tank tread robot is assembled with tread controller and camera.  It is integrated with an off the shelf bluetooth game controller and can drive around via manual inputs from the game controller
-  - PyTorch Ultralytics small Computer Vision model has been created from 120 images and is based on the COCO framework and works only with confidence level of 12% or so.  Many more training photos are needed.
+  - PyTorch Ultralytics small computer vision model has been created from 120 images and is based on the COCO framework and works only with confidence level of 12% or so.  Many more training photos are needed.
     
 ## Training steps
   - Purchase an AWS EC2 P3 Instance
