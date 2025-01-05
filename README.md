@@ -1,5 +1,6 @@
 # Knotweed Terminataor Robot
-# See the other readme at https://github.com/9514Edward/winterknotweed/tree/main/robot-source#startup-files
+## See the other README  
+You can find additional details in the [README at GitHub](https://github.com/9514Edward/winterknotweed/tree/main/robot-source#startup-files).  
 
 ## Introduction
   - The goal of this project is a tank tread robot which can with occasional human assist navigate throughout a patch of knotweed and terminate it -- aka remediatition.  I envision a single operator with about 6 robots deployed at once to remediate a 1,000 square foot patch in about an hour.  Also other models for other plants such as English Ivy.
