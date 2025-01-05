@@ -5,7 +5,7 @@
   - In August I will photograph living knotweed and retrain. August/September is the optimal time to terminate knotweed.
   - I have until then to develop the robot.
 ## Training steps
-  - Purchase an AWS EC3 P3 Instance
+  - Purchase an AWS EC2 P3 Instance
   -  
 
 
