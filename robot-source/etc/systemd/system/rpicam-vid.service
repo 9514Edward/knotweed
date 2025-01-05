@@ -1,0 +1,16 @@
+[Unit]
+Description=RPiCam Streamer Service
+After=network-online.target
+Requires=network-online.target
+
+[Service]
+ExecStart=/usr/bin/rpicam-vid --width 640 --height 480 --framerate 15 --codec mjpeg -n -t 0 --inline --listen -o tcp://127.0.0.1:8080
+Restart=always
+RestartSec=5
+User=root
+Group=root
+StandardOutput=append:/home/efelsenthal/rpicam.log
+StandardError=append:/home/efelsenthal/rpicam_error.log
+
+[Install]
+WantedBy=multi-user.target
