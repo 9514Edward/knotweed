@@ -1,4 +1,4 @@
-# winterknotweed
+# knotweed robot
 
 ## Introduction
   - So, umm this dataset was annotated on roboflow with a monthly subscription ($65), leveraging their Label Assist tool to rapidly draw bounding boxes, then I reviewed all images manually and made corrections/deletions/additions as needed to all the annotations.  Then I downloaded the dataset as shown in the datasets folder here.
