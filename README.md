@@ -1,12 +1,18 @@
 # knotweed robot
 
 ## Introduction
-  - So, umm this dataset was annotated on roboflow with a monthly subscription ($65), leveraging their Label Assist tool to rapidly draw bounding boxes, then I reviewed all images manually and made corrections/deletions/additions as needed to all the annotations.  Then I downloaded the dataset as shown in the datasets folder here.
+  - The goal of this project is a tank tread robot which can with occasional human assist navigate throughout a patch of knotweed and terminate it -- aka remediatition.
+  - The dataset was annotated on roboflow with a monthly subscription ($65), leveraging their Label Assist tool to rapidly draw bounding boxes, then I reviewed all images manually and made corrections/deletions/additions as needed to all the annotations.  Then I downloaded the dataset as shown in the datasets folder here.
   - Today, I am leveraging my existing AWS account to train on an AWS GPU because although I could train at the nano level on my PC, training on the medium level gives many NMS time limit warnings and will result in a poor model.
   - Later I will add my Raspbery PI 5 robot code (scroll down for picture).  Right now, this is just to train the model and tie the computer vision to the steering.
   - The next generation robot will need to map the target area, probably with lidar and require more advanced autonomous or assisted steering and driving as well as remediation attachments.
   - In August I will photograph living knotweed and retrain. August/September is the optimal time to terminate knotweed.
   - I have until then to develop the robot.
+
+## Status at Jan 5, 2025
+  - small testbed tank tread robot is assembled with tread controller and camera.  It is integrated with an off the shelf bluetooth game controller and can drive around via manual inputs from the game controller
+  - PyTorch Ultralytics small Computer Vision model has been created from 120 images and is based on the COCO framework and works only with confidence level of 12% or so.  Many more training photos are needed.
+    
 ## Training steps
   - Purchase an AWS EC2 P3 Instance
      - Deep Learning OSS Nvidia Driver AMI GPU TensorFlow 2.18 (Ubuntu 22.04)
