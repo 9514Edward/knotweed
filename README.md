@@ -1,7 +1,7 @@
 # knotweed robot
 
 ## Introduction
-  - The goal of this project is a tank tread robot which can with occasional human assist navigate throughout a patch of knotweed and terminate it -- aka remediatition.
+  - The goal of this project is a tank tread robot which can with occasional human assist navigate throughout a patch of knotweed and terminate it -- aka remediatition.  I envision a single operator with about 6 robots deployed at once to remediate a 1,000 square foot patch in about an hour.  Also other models for other plants such as English Ivy.
   - The dataset was annotated on roboflow with a monthly subscription ($65), leveraging their Label Assist tool to rapidly draw bounding boxes, then I reviewed all images manually and made corrections/deletions/additions as needed to all the annotations.  Then I downloaded the dataset as shown in the datasets folder here.
   - Today, I am leveraging my existing AWS account to train on an AWS GPU because although I could train at the nano level on my PC, training on the medium level gives many NMS time limit warnings and will result in a poor model.
   - Later I will add my Raspbery PI 5 robot code (scroll down for picture).  Right now, this is just to train the model and tie the computer vision to the steering.
