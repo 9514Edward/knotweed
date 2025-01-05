@@ -1,0 +1,22 @@
+[Unit]
+Description=RPi Camera Continuous Recording
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c 'while true; do rpicam-vid -t 150000 -o "/home/efelsenthal/Videos/output_$(date +%%Y%%m%%d_%%H%%M%%S).mp4"; sleep 150; done'
+
+
+
+Restart=always
+User=pi
+
+
+Restart=always
+RestartSec=5
+User=root
+Group=root
+StandardOutput=append:/home/efelsenthal/rpicam_file.log
+StandardError=append:/home/efelsenthal/rpicam_file_error.log
+
+[Install]
+WantedBy=multi-user.target
