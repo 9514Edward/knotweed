@@ -24,13 +24,14 @@
   - gh repo clone 9514Edward/winterknotweed
   - cd winterknotweed/source/training
   - pip install ultralytics (takes about 5 minutes)
-  - python3 train.py (training only takes 3 minutes for small)
+  - python3 train.py (training only takes 3 minutes for small or medium)
   - git add .
-  - git commit -m "Add YOLOv8 training results and model weights"
+  - git commit -m "Add YOLOv8 small training results and model weights"
   - git push origin main
+  - Yay, now I have the pytorch model file yolov8s.pt which I can use for inference testing and in my robot code. 
 
 The Dave 209 robot test bed
  ![20250104_192800 (Small)](https://github.com/user-attachments/assets/59fe39b7-ece7-4dbe-a2ac-2eb8297dff12)
-  -  
+ 
 
 
