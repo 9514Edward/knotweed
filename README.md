@@ -28,7 +28,8 @@
   - git add .
   - git commit -m "Add YOLOv8 small training results and model weights"
   - git push origin main
-  - Yay, now I have the pytorch model file yolov8s.pt which I can use for inference testing and in my robot code. 
+  - Yay, now I have the pytorch model file yolov8s.pt which I can use for inference testing and in my robot code.
+  - Terminate the instance.  Total time with the EC2 instance took just over an hour due to learning curve and documentation here.
 
 The Dave 209 robot test bed
  ![20250104_192800 (Small)](https://github.com/user-attachments/assets/59fe39b7-ece7-4dbe-a2ac-2eb8297dff12)
