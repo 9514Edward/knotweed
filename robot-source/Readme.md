@@ -9,7 +9,7 @@
   - Examples below:
   - ![annotated_02-39-42](https://github.com/user-attachments/assets/e5b95ab1-7a3a-48e0-aa65-988d83eab7e9)
   ```json
-  - {
+   {
         "timestamp": "02-39-42",
         "image_file": "/home/efelsenthal/frame_annotated/annotated_02-39-42.jpg",
         "detections": [
