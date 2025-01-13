@@ -10,6 +10,11 @@ You can find additional details in the [README Robot Code at GitHub](https://git
   - In August I will photograph living knotweed and retrain. August/September is the optimal time to terminate knotweed.
   - I have until then to develop the robot.
 
+## Next Steps
+ - The next step is to implement object tracking to maintain focus on the detected knotweed, even if temporarily lost during inference.
+ - Need to collect actual knotweed stems for experimentation in the lab.
+ - After adding that, we should be able to start coding the self driving. Get out of the way Elon!
+
 ## Status at Jan 12, 2025
   - Collaborators are welcome.  Email me at titlesync@gmail.com
   - Today reached milestone of running inference in real time on the robot, identified a knotweed stem (albeit incorrectly due to needing more training and having a very low confidence parameter), and wrote the the bounding box coordinates to a file in anticipation of the next step which will be to direct the steering towards the knotweed and stop when it is reached.  See the illustrations [ here: rpicam-auto.service!](https://github.com/9514Edward/winterknotweed/tree/main/robot-source#rpicam-autoservice)
