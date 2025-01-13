@@ -13,8 +13,7 @@ You can find additional details in the [README Robot Code at GitHub](https://git
 ## Status at Jan 12, 2025
   - Collaborators are welcome.  Email me at titlesync@gmail.com
   - Today reached milestone of running inference in real time on the robot, identified a knotweed stem (albeit incorrectly due to needing more training and having a very low confidence parameter), and wrote the the bounding box coordinates to a file in anticipation of the next step which will be to direct the steering towards the knotweed and stop when it is reached.  See the illustrations here:   - rpicam-auto.service > this service starts rpicam_infer.py which captures a frame from the TCP stream every 30th frame (the stream is 15 fps) and it runs inference and saves the annotated jpg files and the inference results to a json file.
-  - Examples below:
-  - ![annotated_02-39-42](https://github.com/user-attachments/assets/e5b95ab1-7a3a-48e0-aa65-988d83eab7e9)
+  - Example here:   ![annotated_02-39-42]
   ```json
    {
         "timestamp": "02-39-42",
