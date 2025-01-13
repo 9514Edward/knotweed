@@ -12,7 +12,27 @@ You can find additional details in the [README Robot Code at GitHub](https://git
 
 ## Status at Jan 12, 2025
   - Collaborators are welcome.  Email me at titlesync@gmail.com
-  - Today reached milestone of running inference in real time on the robot, identified a knotweed stem (albeit incorrectly due to needing more training and having a very low confidence parameter), and wrote the the bounding box coordinates to a file in anticipation of the next step which will be to direct the steering towards the knotweed and stop when it is reached.  See the illustrations here: I expect to run into an issues is the knotweed is no longer inferred as it drives close to it.  
+  - Today reached milestone of running inference in real time on the robot, identified a knotweed stem (albeit incorrectly due to needing more training and having a very low confidence parameter), and wrote the the bounding box coordinates to a file in anticipation of the next step which will be to direct the steering towards the knotweed and stop when it is reached.  See the illustrations here:   - rpicam-auto.service > this service starts rpicam_infer.py which captures a frame from the TCP stream every 30th frame (the stream is 15 fps) and it runs inference and saves the annotated jpg files and the inference results to a json file.
+  - Examples below:
+  - ![annotated_02-39-42](https://github.com/user-attachments/assets/e5b95ab1-7a3a-48e0-aa65-988d83eab7e9)
+  ```json
+   {
+        "timestamp": "02-39-42",
+        "image_file": "/home/efelsenthal/frame_annotated/annotated_02-39-42.jpg",
+        "detections": [
+            {
+                "class_name": "knotweed-stems",
+                "confidence": 0.13095226883888245,
+                "bbox": [
+                    119,
+                    35,
+                    276,
+                    478
+                ]
+            }
+        ]
+    },
+``` I expect to run into an issues is the knotweed is no longer inferred as it drives close to it.  
 
 ## Status at Jan 5, 2025
   - Collaborators are welcome.  Email me at titlesync@gmail.com  I am already collaborating with chat GPT 3 and Google.  I have no education or training on the software and hardware discussed in this project but I am capable of asking the right questions of the right tools to get things to work.
