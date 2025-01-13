@@ -1,0 +1,16 @@
+[Unit]
+Description=RPi Camera for Real-Time Inference
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c 'source /home/efelsenthal/pca9685_env/bin/activate && /home/efelsenthal/pca9685_env/bin/python /home/efelsenthal/Projects/rpicam_infer.py'
+Environment="PATH=/home/efelsenthal/pca9685_env/bin:$PATH"
+Restart=on-failure  # Restart only on failure
+RestartSec=5
+User=root
+Group=root
+StandardOutput=append:/home/efelsenthal/rpicam_infer.log
+StandardError=append:/home/efelsenthal/rpicam_infer_error.log
+
+[Install]
+WantedBy=multi-user.target
