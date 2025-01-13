@@ -10,6 +10,10 @@ You can find additional details in the [README Robot Code at GitHub](https://git
   - In August I will photograph living knotweed and retrain. August/September is the optimal time to terminate knotweed.
   - I have until then to develop the robot.
 
+## Status at Jan 12, 2025
+  - Collaborators are welcome.  Email me at titlesync@gmail.com
+  - Today reached milestone of running inference in real time on the robot, identified a knotweed stem (albeit incorrectly due to needing more training and having a very low confidence parameter), and wrote the the bounding box coordinates to a file in anticipation of the next step which will be to direct the steering towards the knotweed and stop when it is reached.  I expect to run into an issues is the knotweed is no longer inferred as it drives close to it.  
+
 ## Status at Jan 5, 2025
   - Collaborators are welcome.  Email me at titlesync@gmail.com  I am already collaborating with chat GPT 3 and Google.  I have no education or training on the software and hardware discussed in this project but I am capable of asking the right questions of the right tools to get things to work.
   - A small testbed tank tread robot is assembled with tread controller and camera.  It is integrated with an off the shelf bluetooth game controller and can drive around via manual inputs from the game controller.
