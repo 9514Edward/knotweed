@@ -14,7 +14,7 @@ You can find additional details in the [README Robot Code at GitHub](https://git
  - The next step is to implement object tracking to maintain focus on the detected knotweed, even if temporarily lost during inference.
  - Need to collect actual knotweed stems for experimentation in the lab.
  - After adding that, we should be able to start coding the self driving. Get out of the way Elon!
- - Just learned that there is a thing called an oak-1 camera that can do run the model, which will free up the raspberry pi for other functionality.  So, I'm going to get this going.
+ - Just learned that there is a thing called an oak-1 camera that can run the model, which will free up the raspberry pi for other functionality.  So, I'm going to get this going at some point.
 
 ## Status at Jan 12, 2025
   - Collaborators are welcome.  Email me at titlesync@gmail.com
