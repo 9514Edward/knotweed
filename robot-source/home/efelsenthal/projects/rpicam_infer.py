@@ -14,7 +14,7 @@ model = YOLO(model_path)
 logging.info(f"Model loaded from {model_path}")
 
 # Confidence threshold for inference
-confidence_threshold = 0.12
+confidence_threshold = 0.06
 
 
 
@@ -44,7 +44,13 @@ def infer(frame, output_infer_dir, json_output_file):
                     # Draw bounding boxes and labels
                     cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 2)
                     label = f"{class_name} ({conf:.2f})"
+
+                    # Display label above the bounding box (if there's space)
                     cv2.putText(frame, label, (int(x1), int(y1) - 10),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
+
+                    # Display label below the bounding box
+                    cv2.putText(frame, label, (int(x1), int(y2) + 20),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
 
                     # Append detection details to frame data
@@ -145,6 +151,7 @@ def capture_frames(url, interval):
 
 if __name__ == "__main__":
     stream_url = "tcp://127.0.0.1:8080"
-    capture_interval = 1.5
+    capture_interval = 0.8
     capture_frames(stream_url, capture_interval)
+
 
