@@ -1,157 +1,112 @@
 import cv2
+import numpy as np
 import logging
-from ultralytics import YOLO
-import os
-import time
-import json
 
-# Logging setup
-logging.basicConfig(filename='/home/efelsenthal/rpicam_infer.log', level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
-# YOLO Model Path
-model_path = "/home/efelsenthal/Projects/models/best.pt"
-model = YOLO(model_path)
-logging.info(f"Model loaded from {model_path}")
+# Initialize variables
+tracked_objects = {}
+next_object_id = 0
 
-# Confidence threshold for inference
-confidence_threshold = 0.06
+# Parameters
+confidence_threshold = 0.05
+max_distance = 100
 
+def calculate_centroid(bbox):
+    """Calculate the centroid of a bounding box."""
+    x1, y1, x2, y2 = bbox
+    cx = (x1 + x2) // 2
+    cy = (y1 + y2) // 2
+    return cx, cy
 
+def update_tracked_objects(detections):
+    """Update tracked objects based on new detections."""
+    global tracked_objects, next_object_id
 
-def infer(frame, output_infer_dir, json_output_file):
-    """Run inference on the frame, save the annotated frame, and log results in JSON."""
-    # Perform inference using the model
-    results = model.predict(frame, conf=confidence_threshold)
-    
-    # Log results to verify detections
-    if not results:
-        logging.warning("No results returned from the model.")
-    
-    timestamp = time.strftime('%H-%M-%S', time.gmtime(time.time()))
-    annotated_filename = os.path.join(output_infer_dir, f"annotated_{timestamp}.jpg")
-    frame_data = {"timestamp": timestamp, "image_file": annotated_filename, "detections": []}
+    updated_tracked_objects = {}
 
-    # Annotate the frame with results
-    for result in results:
-        if hasattr(result, 'boxes') and result.boxes is not None:
-            for box in result.boxes.data:
-                x1, y1, x2, y2, conf, cls = box[:6]
-                logging.debug(f"Detected box: {x1}, {y1}, {x2}, {y2}, Confidence: {conf}")
+    for det in detections:
+        x1, y1, x2, y2 = det["bbox"]
+        cx, cy = calculate_centroid(det["bbox"])
 
-                if conf >= confidence_threshold:
-                    class_name = model.names[int(cls)]
-                    
-                    # Draw bounding boxes and labels
-                    cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 2)
-                    label = f"{class_name} ({conf:.2f})"
+        matched = False
+        for obj_id, obj_data in tracked_objects.items():
+            prev_cx, prev_cy = calculate_centroid(obj_data["bbox"])
+            distance = np.sqrt((cx - prev_cx) ** 2 + (cy - prev_cy) ** 2)
 
-                    # Display label above the bounding box (if there's space)
-                    cv2.putText(frame, label, (int(x1), int(y1) - 10),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
+            if distance < max_distance:
+                updated_tracked_objects[obj_id] = {
+                    "bbox": det["bbox"],
+                    "class_name": det["class_name"],
+                    "confidence": det["confidence"]
+                }
+                matched = True
+                logging.info(f"Object {obj_id} matched with detection at {(cx, cy)}")
+                break
 
-                    # Display label below the bounding box
-                    cv2.putText(frame, label, (int(x1), int(y2) + 20),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
+        if not matched:
+            updated_tracked_objects[next_object_id] = {
+                "bbox": det["bbox"],
+                "class_name": det["class_name"],
+                "confidence": det["confidence"]
+            }
+            logging.info(f"New object {next_object_id} created for detection at {(cx, cy)}")
+            next_object_id += 1
 
-                    # Append detection details to frame data
-                    frame_data["detections"].append({
-                        "class_name": class_name,
-                        "confidence": float(conf),
-                        "bbox": [int(x1), int(y1), int(x2), int(y2)]
-                    })
+    tracked_objects = updated_tracked_objects
 
-    # Save annotated frame
-    cv2.imwrite(annotated_filename, frame)
-    logging.info(f"Saved annotated frame: {annotated_filename}")
-
-    # Append frame data to JSON file
-    try:
-        with open(json_output_file, "r+") as f:
-            data = json.load(f)
-            data.append(frame_data)
-            f.seek(0)
-            json.dump(data, f, indent=4)
-        logging.info(f"Frame data appended to JSON: {frame_data}")
-    except Exception as e:
-        logging.error(f"Error while writing to JSON file: {str(e)}")
-
-
-def capture_frames(url, interval):
-    """Capture frames from the video stream at a set interval."""
-    logging.info("Starting camera inference script...")
-    cap = cv2.VideoCapture(url)
-
-    if not cap.isOpened():
-        logging.error("Failed to open the TCP stream.")
-        return
-
-    logging.info("Successfully connected to the stream.")
-
-    # Setup directories
-    output_dir = "/home/efelsenthal/frame_debug"
-    annotated_dir = "/home/efelsenthal/frame_annotated"
-
-    # Ensure directories exist
-    os.makedirs(output_dir, exist_ok=True)
-    os.makedirs(annotated_dir, exist_ok=True)
-    
-    # Clear existing files in directories
-    for folder in [output_dir, annotated_dir]:
-        for filename in os.listdir(folder):
-            file_path = os.path.join(folder, filename)
-            if os.path.isfile(file_path):
-                os.remove(file_path)
-    
-    # JSON output file
-    json_output_file = "/home/efelsenthal/frame_annotated/annotations.json"
-
-    # Check if the JSON file exists, if not, create it
-    if not os.path.exists(json_output_file):
-        try:
-            with open(json_output_file, "w") as f:
-                json.dump([], f)
-            logging.info(f"Created new JSON file at {json_output_file}")
-        except Exception as e:
-            logging.error(f"Failed to create JSON file: {str(e)}")
-            raise
-
-
-
-    start_time = time.time()
-    frame_count = 0
+def main():
+    cap = cv2.VideoCapture(0)
 
     while True:
-        cap.grab()  # Attempt to grab a frame
+        ret, frame = cap.read()
+        if not ret:
+            break
 
-        if time.time() - start_time >= interval:
-            ret, frame = cap.read()  # Decode the grabbed frame
-            if not ret:
-                logging.warning("Frame capture returned False. No frame received.")
-                continue
+        # Dummy detections for example purposes
+        detections = [
+            {"bbox": (50, 50, 150, 150), "class_name": "ObjectA", "confidence": 0.8},
+            {"bbox": (200, 200, 300, 300), "class_name": "ObjectB", "confidence": 0.7},
+        ]
 
-            # Save the raw frame
-            timestamp = time.strftime('%H-%M-%S', time.gmtime(time.time()))
-            frame_filename = os.path.join(output_dir, f"frame_{timestamp}.jpg")
-            cv2.imwrite(frame_filename, frame)
-            logging.info(f"Saved raw frame: {frame_filename}")
+        # Filter detections by confidence threshold
+        detections = [det for det in detections if det["confidence"] >= confidence_threshold]
 
-            # Perform inference and save annotated frame
-            infer(frame, annotated_dir, json_output_file)
+        # Update tracked objects
+        update_tracked_objects(detections)
 
-            start_time = time.time()
-            frame_count += 1
+        # Draw bounding boxes
+        for det in detections:
+            x1, y1, x2, y2 = det["bbox"]
+            class_name = det["class_name"]
+            conf = det["confidence"]
 
-        # Stop after a certain number of frames (optional)
-        if frame_count > 100:
-            logging.info("Captured 100 frames. Exiting.")
+            is_tracked = False
+            for obj_id, obj_data in tracked_objects.items():
+                if det["bbox"] == obj_data["bbox"]:
+                    is_tracked = True
+                    # Draw blue bounding box for tracked objects
+                    cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 0), 2)
+                    label = f"Tracked: {class_name} ({conf:.2f})"
+                    cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
+                    break
+
+            # Draw green bounding box for new detections
+            #if not is_tracked:
+            #    cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            #    label = f"New: {class_name} ({conf:.2f})"
+            #    cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
+
+        # Display the frame
+        cv2.imshow("Frame", frame)
+
+        # Break on 'q' key press
+        if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
     cap.release()
-    logging.info("Camera inference script completed.")
+    cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    stream_url = "tcp://127.0.0.1:8080"
-    capture_interval = 0.8
-    capture_frames(stream_url, capture_interval)
-
+    main()
 
