@@ -9,7 +9,8 @@
 ## rpicam-auto.service
   - this service starts rpicam_infer.py which captures a frame from the TCP stream every 20th frame (every 1.5 seconds - the stream is 15 fps) and it runs inference and saves the annotated jpg files for reference and possible re-training and the inference results to a json file.
   - Examples below:
-  - ![annotated_02-39-42](https://github.com/user-attachments/assets/e5b95ab1-7a3a-48e0-aa65-988d83eab7e9)
+  - ![annotated_00-59-16](https://github.com/user-attachments/assets/bf7f0e74-a455-434b-be5d-9d592d35b804)
+
   ```json
    {
         "timestamp": "02-39-42",
