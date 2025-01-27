@@ -11,10 +11,11 @@ You can find additional details in the [README Robot Code at GitHub](https://git
   - I have until then to develop the robot.
 
 ## Next Steps
- - The next step is to implement object tracking to maintain focus on the detected knotweed, even if temporarily lost during inference.
- - Need to collect actual knotweed stems for experimentation in the lab.
- - After adding that, we should be able to start coding the self driving. Get out of the way Elon!
- - Just learned that there is a thing called an oak-1 camera that can run the model, which will free up the raspberry pi for other functionality.  This will be an option if I run out of computing power, but I'm not going to just throw $100 away to get cool points.  Also available are depth perceiving models (for consideration)
+ - Next step is to collect more photos though the video I will take through the robot in the field.  Then retrain and learn better the tools for model training. 
+ - After that, will get basic driving action of scanning 360 degrees, find knotweed, approach it and stop when the bounding box reaches a certain percentage of the screen.
+
+## Status at Jan 26, 2025
+  - Giving up on object tracking as not able to get it working and not a priority
 
 ## Status at Jan 12, 2025
   - Collaborators are welcome.  Email me at titlesync@gmail.com
