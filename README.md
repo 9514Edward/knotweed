@@ -11,7 +11,7 @@ You can find additional details in the [README Robot Code at GitHub](https://git
   - I have until then to develop the robot.
 
 ## Next Steps
- - Next step is to collect more photos though the video I will take through the robot in the field.  Then retrain and learn better the tools for model training. 
+ - Next step is to collect more photos though the video I will take through the robot in the field.  Then retrain and learn better the tools for model training. Before doing this I need to document and memorize steps to 1) create hotspot on phone 2) power up robot 3) connect to bluetooth controller 4) make sure I know which button streams to the phone and which streams to disk.
  - After that, will get basic driving action of scanning 360 degrees, find knotweed, approach it and stop when the bounding box reaches a certain percentage of the screen.
 
 ## Status at Jan 26, 2025
