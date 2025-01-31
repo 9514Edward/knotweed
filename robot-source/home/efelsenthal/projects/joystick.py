@@ -4,6 +4,12 @@ import logging
 from datetime import datetime
 import os
 import subprocess
+import json
+import time
+import threading
+
+stop_search_event = threading.Event()
+
 
 logging.basicConfig(filename='/home/efelsenthal/joystick.log', level=logging.DEBUG)
 logging.debug('Motor control service started')
@@ -13,6 +19,8 @@ IN1_A = 17
 IN2_A = 27
 IN3_A = 22
 IN4_A = 23
+running_search = False
+JSON_FILE_PATH = "/home/efelsenthal/frame_annotated/annotations.json"
 
 def find_joystick_device():
     devices = [evdev.InputDevice(path) for path in evdev.list_devices()]
@@ -22,6 +30,7 @@ def find_joystick_device():
             return device.path
     logging.debug("Joystick not found")
     return None
+
 
 # Define motors
 try:
@@ -42,8 +51,9 @@ except Exception as e:
 left_y = 0
 right_x = 0
 
-STREAM_TO_HTTP = 305
-STREAM_TO_FILE = 304
+STREAM_TO_HTTP = 305  #A
+STREAM_TO_FILE = 304  #B
+SEARCH_FOR_KNOTWEED = 307 #X
 
 def normalize(value, min_value, max_value):
     normalized_value = (value - min_value) / (max_value - min_value) * 2 - 1
@@ -91,17 +101,21 @@ def control_tracks(left_y, right_x):
         logging.debug(f"Error in control_tracks: {e}")
 
 def stop_motors():
+    """Stops all motors and signals the knotweed search to stop."""
     try:
         motor_a.stop()
         motor_b.stop()
-        logging.debug("All motors stopped.")
+        stop_search_event.set()  # Signal search thread to stop
+        logging.debug("All motors stopped. Search interrupted if running.")
     except Exception as e:
         logging.debug(f"Error stopping motors: {e}")
 
+
 def handle_event(event):
-    global left_y, right_x
+    global left_y, right_x, running_search
     try:
-        if event.type == evdev.ecodes.EV_ABS:
+        if event.type == evdev.ecodes.EV_ABS and running_search == False:
+            logging.debug(f"event: {event.code}")
             if event.code == evdev.ecodes.ABS_Y:
                 left_y = event.value
                 logging.debug(f"Left Y-axis value: {left_y}")
@@ -111,12 +125,28 @@ def handle_event(event):
             control_tracks(left_y, right_x)
 
         elif event.type == evdev.ecodes.EV_KEY:
+            logging.debug(f"You pressed code {event.code}")
             if event.code == STREAM_TO_HTTP and event.value == 1:
+                stop_motors()
+                logging.debug("Stream to http button")
                 stop_service("rpicam-file.service")
                 start_service("rpicam-vid.service")
+                running_search = False
             elif event.code == STREAM_TO_FILE and event.value == 1:
+                stop_motors()
+                logging.debug("Stream to file button")
                 stop_service("rpicam-vid.service")
                 start_service("rpicam-file.service")
+                running_search = False
+            elif event.code == SEARCH_FOR_KNOTWEED and event.value == 1:
+                stop_motors()  # Ensure motors are stopped before starting search
+                stop_service("rpicam-vid.service")
+                stop_service("rpicam-file.service")
+                running_search = True
+                search_thread = threading.Thread(target=run_knotweed_search, daemon=True)
+                search_thread.start()
+
+                
     except Exception as e:
         logging.debug(f"Error handling event: {e}")
 
@@ -128,6 +158,62 @@ def start_service(service_name):
 
 def restart_service(service_name):
     subprocess.run(["sudo", "systemctl", "restart", service_name], check=True)
+    
+def detect_knotweed():
+    global JSON_FILE_PATH
+    """Reads the latest JSON entry and checks for knotweed detection."""
+    if not os.path.exists(JSON_FILE_PATH):
+        return False  # No file means no detections yet
+    
+    with open(JSON_FILE_PATH, "r") as file:
+        try:
+            data = json.load(file)
+        except json.JSONDecodeError:
+            return False  # Handle incomplete JSON due to writing delays
+
+    # Directly iterate over the array
+    for detection in data:
+        if detection.get("class_name") == "knotweed-stems" and detection.get("confidence", 0) >= CONFIDENCE_THRESHOLD:
+            return True
+    
+    return False
+
+
+def run_knotweed_search():
+    """Slowly rotates the tank until a knotweed stem is detected or interrupted."""
+    global running_search
+    print("Starting knotweed search...")
+    stop_search_event.clear()  # Ensure the event is not set at the start
+
+    rotate_tank()  # Start rotation
+
+    while not stop_search_event.is_set():  # Check if we should stop
+        if detect_knotweed():
+            print("Knotweed detected! Stopping rotation.")
+            stop_tank()
+            running_search = False  # Reset running flag
+            return  # Exit gracefully
+
+        time.sleep(0.5)  # Wait before checking again to reduce CPU usage
+
+    print("Search interrupted. Stopping rotation.")
+    stop_tank()
+    running_search = False  # Reset running flag
+
+
+# Example motor control functions
+def rotate_tank():
+    """Placeholder function to rotate the tank."""
+    speed = .5
+    motor_a.forward(abs(speed))
+    motor_b.backward(abs(speed))
+    print(f"Rotating tank at speed {speed}...")
+
+def stop_tank():
+    """Placeholder function to stop the tank."""
+    stop_motors()
+    print("Tank stopped.")
+    
 
 def main():
     try:
