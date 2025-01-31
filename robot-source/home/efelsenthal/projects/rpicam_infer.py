@@ -14,7 +14,7 @@ model = YOLO(model_path)
 logging.info(f"Model loaded from {model_path}")
 
 # Confidence threshold for inference
-confidence_threshold = 0.12
+confidence_threshold = 0.07
 
 
 
