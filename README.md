@@ -52,5 +52,7 @@ You can find additional details in the [README Robot Code at GitHub](https://git
   - The Dave 209 robot test bed
   - ![20250104_192800 (Small)](https://github.com/user-attachments/assets/59fe39b7-ece7-4dbe-a2ac-2eb8297dff12)
  
+## Debugging
+  - If unable to connect to bluetooth after booting multiple times.  Need to run sudo rfkill unblock bluetooth
 
 
