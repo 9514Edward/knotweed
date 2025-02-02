@@ -126,22 +126,24 @@ def handle_event(event):
 
         elif event.type == evdev.ecodes.EV_KEY:
             logging.debug(f"You pressed code {event.code}")
-            if event.code == STREAM_TO_HTTP and event.value == 1:
+            if event.code == STREAM_TO_HTTP and event.value == 1:   #A
                 stop_motors()
                 logging.debug("Stream to http button")
-                stop_service("rpicam-file.service")
+                stop_service("rpicam-auto.service")
                 start_service("rpicam-vid.service")
                 running_search = False
-            elif event.code == STREAM_TO_FILE and event.value == 1:
+            elif event.code == STREAM_TO_FILE and event.value == 1:   #B
                 stop_motors()
                 logging.debug("Stream to file button")
-                stop_service("rpicam-vid.service")
+                stop_service("rpicam-auto.service")
                 start_service("rpicam-file.service")
                 running_search = False
-            elif event.code == SEARCH_FOR_KNOTWEED and event.value == 1:
+            elif event.code == SEARCH_FOR_KNOTWEED and event.value == 1:  #X
                 stop_motors()  # Ensure motors are stopped before starting search
-                stop_service("rpicam-vid.service")
+                start_service("rpicam-vid.service")
                 stop_service("rpicam-file.service")
+                start_service("rpicam-auto.service")
+                
                 running_search = True
                 search_thread = threading.Thread(target=run_knotweed_search, daemon=True)
                 search_thread.start()
