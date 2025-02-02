@@ -4,7 +4,7 @@
   - joystick.service > this service listens to the bluetooth game controller and allows manual driving as well as toggling between TCP streaming or to MP4 files nstead of TCP.
   ## started and stopped via joystick service
   - (B) button --rpicam-file.service > this service is started when the joystick controller B button is pressed.  It streams the video stream to mp4 files of 2.5 minutes (150000 milliseconds) duration on the RasPI
-  - (A) button -- rpicam-vid.service > this service streams the camera to tcp://127.0.0.1:8080, waiting to be picked up.  If nobody picks it up, it crashes and restarts until it is picked up.   Pressing the A button reverts to tcp streaming.  The viewer will need to refresh the page to pick up the stream again.
+  - (A) button -- rpicam-vid.service > this service streams the camera to tcp://127.0.0.1:8080, waiting to be picked up.  If nobody picks it up, it crashes and restarts until it is picked up.   Pressing the A button reverts to tcp streaming.  If viewing via browser, the viewer will need to refresh the page to pick up the stream again.
   - (X) button -- rpicam-auto.service > works in conjunction with rpicam-vid.service and launches rpicam_infer.py to self drive the robot.  Requires rpicam-vid.service.
   ## other
   - webserver.service 
