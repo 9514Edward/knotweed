@@ -14,3 +14,4 @@ StandardError=append:/home/efelsenthal/rpicam_error.log
 
 [Install]
 WantedBy=multi-user.target
+
