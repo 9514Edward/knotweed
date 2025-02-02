@@ -1,11 +1,11 @@
 # Startup files
 ## Currently service files are: 
   ## running on boot (enabled)
-  - joystick.service > this service listens to the bluetooth game controller and allows manual driving as well as toggling between TCP streaming or to MP4 files.
+  - joystick.service > this service listens to the bluetooth game controller and allows manual driving as well as toggling between TCP streaming or to MP4 files nstead of TCP.
   ## started and stopped via joystick service
   - rpicam-file.service > this service is started when the joystick controller B button is pressed.  It streams the video stream to mp4 files of 2.5 minutes (150000 milliseconds) duration on the RasPI
-  - rpicam-vid.service > this service streams the camera to tcp://127.0.0.1:8080, waiting to be picked up.  If nobody picks it up, it crashes and restarts until it is picked up.  instead of TCP.  Pressing the A button reverts to tcp streaming.  The viewer will need to refresh the page to pick up the stream again.
-  - rpicam-auto.service > works in conjunction with rpicam-vid.service and launches rpicam_infer.py to self drive the robot
+  - rpicam-vid.service > this service streams the camera to tcp://127.0.0.1:8080, waiting to be picked up.  If nobody picks it up, it crashes and restarts until it is picked up.   Pressing the A button reverts to tcp streaming.  The viewer will need to refresh the page to pick up the stream again.
+  - rpicam-auto.service > works in conjunction with rpicam-vid.service and launches rpicam_infer.py to self drive the robot.  Requires rpicam-vid.service.
   ## other
   - webserver.service 
   - this service starts the webserver app /home/efelsenthal/Projects/webserver/app.py.  This app serves a web page that plays robotic music and the tcp stream from rpicam-vid.service. On the RasPI: http://localhost:5000.  Can also be streamed to a networked computer by pointing the browser to the IP of the ras pi, ie http://192.168.1.68:5000.  Only one browser can watch at a time.  
