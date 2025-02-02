@@ -1,6 +1,9 @@
 [Unit]
 Description=RPi Camera for Real-Time Inference
+Requires=rpicam-vid.service
+After=rpicam-vid.service
 After=network.target
+
 
 [Service]
 ExecStart=/bin/bash -c 'source /home/efelsenthal/pca9685_env/bin/activate && /home/efelsenthal/pca9685_env/bin/python /home/efelsenthal/Projects/rpicam_infer.py'
@@ -14,3 +17,4 @@ StandardError=append:/home/efelsenthal/rpicam_infer_error.log
 
 [Install]
 WantedBy=multi-user.target
+
