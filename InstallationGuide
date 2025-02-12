@@ -12,3 +12,4 @@
   - systemctl enable rpicam-file
   - systemctl enable rpicam-vid
   - systemctl enable webserver
+  WORKING ON THIS
