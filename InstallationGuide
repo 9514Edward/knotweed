@@ -1,0 +1,14 @@
+## Installation
+  - From a fresh Raspbery pi 5 install
+  - copy the .service files to /home/pi
+  - from command prompt: sudo cp *.service /etc/systemd/system
+  - cd /home/pi
+  - python3 -m venv pca9685_env
+  - source pca9685_env/bin/activate
+  - sudo apt update
+  - sudo apt install -y libcamera-apps
+  - systemctl enable joystick
+  - systemctl enable rpicam-auto
+  - systemctl enable rpicam-file
+  - systemctl enable rpicam-vid
+  - systemctl enable webserver
