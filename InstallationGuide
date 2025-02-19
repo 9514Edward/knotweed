@@ -12,4 +12,6 @@
   - systemctl enable rpicam-file
   - systemctl enable rpicam-vid
   - systemctl enable webserver
-  WORKING ON THIS
+  - sudo raspi-config (Interface Options > IC2 > enable)
+  - sudo reboot
+  - 
