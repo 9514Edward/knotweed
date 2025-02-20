@@ -6,10 +6,10 @@ import time
 import json
 
 # Logging setup
-logging.basicConfig(filename='/home/efelsenthal/rpicam_infer.log', level=logging.DEBUG)
+logging.basicConfig(filename='/home/pi/rpicam_infer.log', level=logging.DEBUG)
 
 # YOLO Model Path
-model_path = "/home/efelsenthal/Projects/models/best.pt"
+model_path = "/home/pi/Projects/models/best.pt"
 model = YOLO(model_path)
 logging.info(f"Model loaded from {model_path}")
 
@@ -82,8 +82,8 @@ def capture_frames(url, interval):
     logging.info("Successfully connected to the stream.")
 
     # Setup directories
-    output_dir = "/home/efelsenthal/frame_debug"
-    annotated_dir = "/home/efelsenthal/frame_annotated"
+    output_dir = "/home/pi/frame_debug"
+    annotated_dir = "/home/pi/frame_annotated"
 
     # Ensure directories exist
     os.makedirs(output_dir, exist_ok=True)
@@ -97,7 +97,7 @@ def capture_frames(url, interval):
                 os.remove(file_path)
     
     # JSON output file
-    json_output_file = "/home/efelsenthal/frame_annotated/annotations.json"
+    json_output_file = "/home/pi/frame_annotated/annotations.json"
 
     # Check if the JSON file exists, if not, create it
     if not os.path.exists(json_output_file):
