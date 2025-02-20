@@ -1,3 +1,7 @@
+## Hardware
+  - Raspberry PI 5
+  - One L298N controller
+
 ## Installation
   - From a fresh Raspbery pi 5 install
   - copy the .service files to /home/pi
