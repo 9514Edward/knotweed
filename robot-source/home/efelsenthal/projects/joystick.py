@@ -11,7 +11,7 @@ import threading
 stop_search_event = threading.Event()
 
 
-logging.basicConfig(filename='/home/efelsenthal/joystick.log', level=logging.DEBUG)
+logging.basicConfig(filename='/home/pi/joystick.log', level=logging.DEBUG)
 logging.debug('Motor control service started')
 
 # GPIO pin setup for Motor Driver 1 (Motors A and B)
@@ -20,7 +20,7 @@ IN2_A = 27
 IN3_A = 22
 IN4_A = 23
 running_search = False
-JSON_FILE_PATH = "/home/efelsenthal/frame_annotated/annotations.json"
+JSON_FILE_PATH = "/home/pi/frame_annotated/annotations.json"
 
 def find_joystick_device():
     devices = [evdev.InputDevice(path) for path in evdev.list_devices()]
