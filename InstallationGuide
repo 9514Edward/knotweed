@@ -16,6 +16,5 @@
   - systemctl enable rpicam-file
   - systemctl enable rpicam-vid
   - systemctl enable webserver
-  - sudo raspi-config (Interface Options > IC2 > enable)
-  - sudo reboot
-  - 
+  - source pca9685_env/bin/activate
+  - sudo apt install python3-evdev
