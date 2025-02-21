@@ -5,6 +5,7 @@
 ## Installation
   - From a fresh Raspbery pi 5 install
   - copy the .service files to /home/pi
+  - from https://github.com/9514Edward/knotweed/tree/main/source/training/runs/detect/yolov8s_v8_50e2/weights  copy best.pt to /home/pi/Projects/models/best.pt
   - from command prompt: sudo cp *.service /etc/systemd/system
   - cd /home/pi
   - python3 -m venv pca9685_env
