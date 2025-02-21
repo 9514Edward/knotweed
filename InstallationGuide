@@ -17,4 +17,5 @@
   - systemctl enable rpicam-vid
   - systemctl enable webserver
   - source pca9685_env/bin/activate
-  - sudo apt install python3-evdev
+  - pip install evdev
+
