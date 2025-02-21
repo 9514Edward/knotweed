@@ -1,6 +1,6 @@
 ## Hardware
   - Raspberry PI 5
-  - One L298N controller
+  - One KOOBOOK DRV8833 Motor Drive Module 1.5A Dual H Bridge DC Gear Motor Driver Controller Board
 
 ## Installation
   - From a fresh Raspbery pi 5 install
