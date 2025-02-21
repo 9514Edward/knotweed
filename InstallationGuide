@@ -19,4 +19,4 @@
   - source pca9685_env/bin/activate
   - pip install evdev
   - pip install opencv-python
-
+  - pip install ultralytics
