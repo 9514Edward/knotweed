@@ -14,7 +14,7 @@ model = YOLO(model_path)
 logging.info(f"Model loaded from {model_path}")
 
 # Confidence threshold for inference
-confidence_threshold = 0.07
+confidence_threshold = 0.05
 
 
 
@@ -118,6 +118,7 @@ def capture_frames(url, interval):
         cap.grab()  # Attempt to grab a frame
 
         if time.time() - start_time >= interval:
+            logging.info("Grabbed a frame")
             ret, frame = cap.read()  # Decode the grabbed frame
             if not ret:
                 logging.warning("Frame capture returned False. No frame received.")
@@ -147,4 +148,5 @@ if __name__ == "__main__":
     stream_url = "tcp://127.0.0.1:8080"
     capture_interval = 1.5
     capture_frames(stream_url, capture_interval)
+
 
